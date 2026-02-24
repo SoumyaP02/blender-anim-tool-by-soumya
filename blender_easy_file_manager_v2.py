@@ -52,6 +52,10 @@ class EasyFileManagerProperties(PropertyGroup):
             ('MATERIAL', "Materials", "Link/Append materials"),
             ('NODEGROUP', "Node Groups", "Link/Append node groups"),
             ('WORLD', "Worlds", "Link/Append worlds"),
+            ('ACTION', "Actions", "Link/Append actions"),
+            ('BRUSH', "Brushes", "Link/Append brushes"),
+            ('SCENE', "Scenes", "Link/Append scenes"),
+            ('IMAGE', "Images", "Link/Append images"),
         ],
         default='OBJECT'
     )
@@ -118,6 +122,14 @@ class EASY_OT_ScanFile(Operator):
                     asset_list = data_from.node_groups
                 elif props.asset_type == 'WORLD':
                     asset_list = data_from.worlds
+                elif props.asset_type == 'ACTION':
+                    asset_list = data_from.actions
+                elif props.asset_type == 'BRUSH':
+                    asset_list = data_from.brushes
+                elif props.asset_type == 'SCENE':
+                    asset_list = data_from.scenes
+                elif props.asset_type == 'IMAGE':
+                    asset_list = data_from.images
                 
                 # Add to list
                 for asset_name in asset_list:
@@ -243,6 +255,22 @@ class EASY_OT_ExecuteFileAction(Operator):
             elif props.asset_type == 'WORLD':
                 data_to.worlds = [name for name in data_from.worlds if name in selected_assets]
                 imported_items = data_to.worlds
+                
+            elif props.asset_type == 'ACTION':
+                data_to.actions = [name for name in data_from.actions if name in selected_assets]
+                imported_items = data_to.actions
+                
+            elif props.asset_type == 'BRUSH':
+                data_to.brushes = [name for name in data_from.brushes if name in selected_assets]
+                imported_items = data_to.brushes
+                
+            elif props.asset_type == 'SCENE':
+                data_to.scenes = [name for name in data_from.scenes if name in selected_assets]
+                imported_items = data_to.scenes
+                
+            elif props.asset_type == 'IMAGE':
+                data_to.images = [name for name in data_from.images if name in selected_assets]
+                imported_items = data_to.images
         
         # Post-processing based on asset type
         if props.asset_type == 'COLLECTION':
